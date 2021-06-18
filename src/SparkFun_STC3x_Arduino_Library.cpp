@@ -49,12 +49,12 @@ bool STC3x::begin(uint8_t i2cAddress, TwoWire &wirePort)
 
   if (_printDebug == true)
   {
-    _debugPort->print(F("SCD3x::begin: got product number 0x"));
+    _debugPort->print(F("STC3x::begin: got product number 0x"));
     _debugPort->println(productNumber, HEX);
-    _debugPort->print(F("SCD3x::begin: got serial number 0x"));
+    _debugPort->print(F("STC3x::begin: got serial number 0x"));
     _debugPort->println(serialNumber);
     if (productNumber != _sensorType)
-      _debugPort->println(F("SCD3x::begin: PANIC! Unexpected product number! Are you sure this is a STC31?"));
+      _debugPort->println(F("STC3x::begin: PANIC! Unexpected product number! Are you sure this is a STC31?"));
   }
 
   return (success);
@@ -384,7 +384,7 @@ char STC3x::convertHexToASCII(uint8_t digit)
   if (digit <= 9)
     return (char(digit + 0x30));
   else
-    return (char(digit + 0x41)); // Use upper case for A-F
+    return (char(digit + 0x41 - 10)); // Use upper case for A-F
 }
 
 //Sends a command along with arguments and CRC
