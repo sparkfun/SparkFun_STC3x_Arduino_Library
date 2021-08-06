@@ -53,7 +53,7 @@ bool STC3x::begin(uint8_t i2cAddress, TwoWire &wirePort)
     _debugPort->println(productNumber, HEX);
     _debugPort->print(F("STC3x::begin: got serial number 0x"));
     _debugPort->println(serialNumber);
-    if (productNumber != _sensorType)
+    if (productNumber != (uint32_t)_sensorType)
       _debugPort->println(F("STC3x::begin: PANIC! Unexpected product number! Are you sure this is a STC31?"));
   }
 
@@ -83,7 +83,7 @@ bool STC3x::setBinaryGas(STC3X_binary_gas_type_e binaryGas)
 //With the set relative humidity command, the sensor uses internal algorithms to compensate the concentration results.
 bool STC3x::setRelativeHumidity(float RH)
 {
-  uint16_t _rh = (uint16_t)(RH * 65535.0 / 100.0);
+  uint16_t _rh = (uint16_t)(RH * 65535.0 / 100.0); // See 3.5 Conversion to Physical Values
   bool success = sendCommand(STC3X_COMMAND_SET_RELATIVE_HUMIDITY, _rh);
   return (success);
 }
@@ -149,7 +149,7 @@ bool STC3x::measureGasConcentration(void)
   if (_i2cPort->endTransmission() != 0)
     return (false); //Sensor did not ACK
 
-  delay(66); //Datasheet specifies this
+  delay(75); //Datasheet specifies 66ms but sensor seems to need at least 70ms. 75ms provides margin.
 
   uint8_t receivedBytes = (uint8_t)_i2cPort->requestFrom((uint8_t)_stc3x_i2c_address, (uint8_t)9);
   bool error = false;
@@ -215,8 +215,8 @@ bool STC3x::measureGasConcentration(void)
   }
 
   //Now copy the data into their associated floats
-  co2 = ((((float)tempCO2.unsigned16) - 16384) / 32768) * 100;
-  temperature = ((float)tempTemperature.signed16) / 200;
+  co2 = ((((float)tempCO2.unsigned16) - 16384) / 32768) * 100; // See 3.5 Conversion to Physical Values
+  temperature = ((float)tempTemperature.signed16) / 200; // See 3.5 Conversion to Physical Values
 
   //Mark our global variables as fresh
   co2HasBeenReported = false;
@@ -235,7 +235,7 @@ float STC3x::getCO2(void)
 
   co2HasBeenReported = true;
 
-  return co2;
+  return (co2);
 }
 
 //Returns the latest available temperature
@@ -247,7 +247,25 @@ float STC3x::getTemperature(void)
 
   temperatureHasBeenReported = true;
 
-  return temperature;
+  return (temperature);
+}
+
+//Force a sensor recalibration using the provided concentration
+//Forced recalibration is used to improve the sensor output with a known reference value.
+//See the Field Calibration Guide for more details.
+//If no argument is given, the sensor will assume a default value of 0 vol%.
+//This command will trigger a concentration measurement as described in 3.3.6 and therefore it will take the same measurement time.
+bool STC3x::forcedRecalibration(float concentration, uint16_t delayMillis)
+{
+  if (concentration < 0.0) // Ignore negative concentrations
+    concentration = 0.0;
+  if (concentration > 100.0) // Ignore concentrations above 100%
+    concentration = 100.0;
+  uint16_t conc_16 = (uint16_t)(((concentration * 32768) / 100) + 16384); // See 3.5 Conversion to Physical Values
+  bool success = sendCommand(STC3X_COMMAND_FORCED_RECALIBRATION, conc_16);
+  if (delayMillis > 0)
+    delay(delayMillis); // Allow time for the measurement to complete
+  return (success);
 }
 
 //Perform self test. Takes 20ms to complete. See 3.3.10

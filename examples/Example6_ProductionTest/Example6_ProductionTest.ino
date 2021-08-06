@@ -82,7 +82,7 @@ void loop()
   }
 
   float myCO2 = mySensor.getCO2();
-  if ((myCO2 < 0) || (myCO2 > 5))
+  if ((myCO2 < -10) || (myCO2 > 20))
   {
     digitalWrite(LED_BUILTIN, LOW);
     Wire.end();

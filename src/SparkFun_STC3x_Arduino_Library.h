@@ -126,7 +126,8 @@ public:
   float getCO2(void); // Return the CO2 concentration %. Automatically request fresh data is the data is 'stale'
   float getTemperature(void); // Return the temperature. Automatically request fresh data is the data is 'stale'
 
-  bool forcedRecalibration(uint16_t concentration) { return (sendCommand(STC3X_COMMAND_FORCED_RECALIBRATION, concentration)); }
+  bool forcedRecalibration(float concentration, uint16_t delayMillis = 75);
+
   bool enableAutomaticSelfCalibration(void) { return (sendCommand(STC3X_COMMAND_AUTOMATIC_CALIBRATION_ENABLE)); }
   bool disableAutomaticSelfCalibration(void) { return (sendCommand(STC3X_COMMAND_AUTOMATIC_CALIBRATION_DISABLE)); }
 

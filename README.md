@@ -1,8 +1,8 @@
 # SparkFun STC3x CO<sub>2</sub> Sensor Library
 
-[![SparkX STC31 Breakout (Qwiic) (SPX-nnnnn)]()](https://www.sparkfun.com/products/nnnnn)
+[![SparkX STC31 Breakout (Qwiic) (SPX-18385)](https://cdn.sparkfun.com//assets/parts/1/7/7/9/5/18385-STC31_Breakout-01.jpg)](https://www.sparkfun.com/products/18385)
 
-[*SparkX STC31 Breakout (Qwiic) (SPX-nnnnn)*](https://www.sparkfun.com/products/nnnnn)
+[*SparkX STC31 Breakout (Qwiic) (SPX-18385)*](https://www.sparkfun.com/products/18385)
 
 An Arduino library for the STC3x family of CO<sub>2</sub> sensors from Sensirion. The STC31 uses Sensirion’s patented CMOSens® sensor technology to measure CO<sub>2</sub> concentrations up to 100%.
 

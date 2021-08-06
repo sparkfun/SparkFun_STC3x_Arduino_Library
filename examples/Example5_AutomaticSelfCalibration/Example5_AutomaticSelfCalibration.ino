@@ -29,7 +29,7 @@ void setup()
   Serial.println(F("STC3x Example"));
   Wire.begin();
 
-  mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
+  //mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
 
   if (mySensor.begin() == false)
   {
@@ -50,6 +50,18 @@ void setup()
     Serial.println(F("Could not set the binary gas! Freezing..."));
     while (1)
       ;
+  }
+
+  //Forced recalibration is used to improve the sensor output with a known reference value.
+  //See the Field Calibration Guide for more details.
+  //This command will trigger a concentration measurement and therefore it will take the same measurement time.
+  if (mySensor.forcedRecalibration(0.0) == true) // Force a recalibration with a concentration of 0%
+  {
+    Serial.println(F("Forced Recalibration was successful!"));
+  }
+  else
+  {
+    Serial.println(F("Forced Recalibration FAILED! Please check the debug messages for more details"));
   }
 
   //The sensor can run in automatic self-calibration mode.

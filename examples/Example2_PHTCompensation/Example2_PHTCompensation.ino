@@ -33,7 +33,7 @@ void setup()
   Serial.println(F("STC3x Example"));
   Wire.begin();
 
-  mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
+  //mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
 
   if (mySensor.begin() == false)
   {
@@ -71,13 +71,35 @@ void setup()
     while (1)
       ;
   }
-  mySensor.setTemperature(mySHTC3.toDegC()); // "toDegC" returns the temperature as a floating point number in deg C
-  mySensor.setRelativeHumidity(mySHTC3.toPercent()); // "toPercent" returns the percent humidity as a floating point number
+  
+  //In case the ‘Set temperature command’ has been used prior to the measurement command,
+  //the temperature value given out by the STC31 will be that one of the ‘Set temperature command’.
+  //When the ‘Set temperature command’ has not been used, the internal temperature value can be read out. 
+  float temperature = mySHTC3.toDegC(); // "toDegC" returns the temperature as a floating point number in deg C
+  Serial.print(F("Setting STC3x temperature to "));
+  Serial.print(temperature, 2);
+  Serial.print(F("C was "));
+  if (mySensor.setTemperature(temperature) == false)
+    Serial.print(F("not "));
+  Serial.println(F("successful"));
 
+  float RH = mySHTC3.toPercent(); // "toPercent" returns the percent humidity as a floating point number
+  Serial.print(F("Setting STC3x RH to "));
+  Serial.print(RH, 2);
+  Serial.print(F("% was "));
+  if (mySensor.setRelativeHumidity(RH) == false)
+    Serial.print(F("not "));
+  Serial.println(F("successful"));
 
   //If we have a pressure sensor available, we can compensate for ambient pressure too.
   //As an example, let's set the pressure to 840 mbar (== SF Headquarters)
-  mySensor.setPressure(840); // Set the ambient pressure in mbar
+  uint16_t pressure = 840;
+  Serial.print(F("Setting STC3x pressure to "));
+  Serial.print(pressure);
+  Serial.print(F("mbar was "));
+  if (mySensor.setPressure(pressure) == false)
+    Serial.print(F("not "));
+  Serial.println(F("successful"));
 }
 
 void loop()
