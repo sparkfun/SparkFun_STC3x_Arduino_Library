@@ -8,7 +8,7 @@
   basically do whatever you want with this code.
 
   Feel like supporting open source hardware?
-  Buy a board from SparkFun! https://www.sparkfun.com/products/nnnnn
+  Buy a board from SparkFun! https://www.sparkfun.com/products/18385
 
   Production test: LED_BUILTIN will light up if the STC31 and SHTC3 are detected correctly
   and the CO2, humidity and temperature are within bounds.

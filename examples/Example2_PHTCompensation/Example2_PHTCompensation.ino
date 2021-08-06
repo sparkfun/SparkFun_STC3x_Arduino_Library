@@ -8,7 +8,7 @@
   basically do whatever you want with this code.
 
   Feel like supporting open source hardware?
-  Buy a board from SparkFun! https://www.sparkfun.com/products/nnnnn
+  Buy a board from SparkFun! https://www.sparkfun.com/products/18385
 
   This examples shows how to compensate for pressure, temperature and humidity
   Temperature and humidity are provided by the SHTC3 on the STC31 breakout
