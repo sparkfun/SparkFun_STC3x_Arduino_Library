@@ -23,6 +23,12 @@ Documentation
 
 * **[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)** - Basic information on how to install an Arduino library.
 
+Products that use this Library
+----------------
+
+* [SEN-18632](https://www.sparkfun.com/products/18632) - SparkFun MicroMod Environmental Function Board with SGP40, STC31, and SHTC3
+* [SPX-18385](https://www.sparkfun.com/products/18385) - SparkX Breakout with STC31 and SHTC3 
+
 License Information
 -------------------
 
