@@ -21,7 +21,7 @@
 #include <Wire.h>
 
 #include "SparkFun_STC3x_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_STC3x
-STC3x mySensor;
+SparkFunSTC3x mySensor;
 
 void setup()
 {
@@ -29,7 +29,6 @@ void setup()
   Serial.println(F("STC3x Example"));
   Wire.begin();
 
-  //mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
 
   if (mySensor.begin() == false)
   {
@@ -59,7 +58,7 @@ void setup()
   }
   else
   {
-    Serial.println(F("Self test FAILED! Please check the debug messages for more details"));
+    Serial.println(F("Self test FAILED!"));
   }
 
   //Let's print the sensor product and serial numbers
@@ -74,7 +73,7 @@ void setup()
   }
   else
   {
-    Serial.println(F("getProductIdentifier FAILED! Please check the debug messages for more details"));
+    Serial.println(F("getProductIdentifier FAILED!"));
   }  
 }
 

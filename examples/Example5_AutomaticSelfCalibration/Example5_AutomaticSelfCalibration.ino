@@ -21,7 +21,7 @@
 #include <Wire.h>
 
 #include "SparkFun_STC3x_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_STC3x
-STC3x mySensor;
+SparkFunSTC3x mySensor;
 
 void setup()
 {
@@ -29,7 +29,6 @@ void setup()
   Serial.println(F("STC3x Example"));
   Wire.begin();
 
-  //mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
 
   if (mySensor.begin() == false)
   {
@@ -61,7 +60,7 @@ void setup()
   }
   else
   {
-    Serial.println(F("Forced Recalibration FAILED! Please check the debug messages for more details"));
+    Serial.println(F("Forced Recalibration FAILED!"));
   }
 
   //The sensor can run in automatic self-calibration mode.
@@ -76,7 +75,7 @@ void setup()
   }
   else
   {
-    Serial.println(F("enableAutomaticSelfCalibration FAILED! Please check the debug messages for more details"));
+    Serial.println(F("enableAutomaticSelfCalibration FAILED!"));
   }
 }
 

@@ -21,7 +21,7 @@
 #include <Wire.h>
 
 #include "SparkFun_STC3x_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_STC3x
-STC3x mySensor;
+SparkFunSTC3x mySensor;
 
 void setup()
 {
@@ -30,7 +30,6 @@ void setup()
   
   Wire1.begin(); // In this example, we will connect using Wire1 instead of Wire
 
-  //mySensor.enableDebugging(); // Uncomment this line to get helpful debug messages on Serial
 
   // The STC31 has a default I2C address of 0x29.
   // The alternate addresses 0x2A, 0x2B and 0x2C can be selected by closing one of the jumpers on the rear of the breakout

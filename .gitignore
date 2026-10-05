@@ -1,0 +1,5 @@
+# VSCode directories
+.vscode
+
+# Doxygen output
+docs/html/
